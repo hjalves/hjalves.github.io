@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Humberto Alves" />
+<meta name="description" content="Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. Stream é uma nova interface que permite executar múltiplas …" />
+<meta name="keywords" content="java">
+<meta property="og:site_name" content="hjalves.eu"/>
+<meta property="og:title" content="Java 8: Streams"/>
+<meta property="og:description" content="Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. Stream é uma nova interface que permite executar múltiplas …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./java-8-streams.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-04-01 15:18:39+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/humberto-alves.html">
+<meta property="article:section" content="coding"/>
+<meta property="article:tag" content="java"/>
+<meta property="og:image" content="">
+
+  <title>hjalves.eu &ndash; Java 8: Streams</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href=".">
+        <img src="./theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="."></a></h1>
+
+
+      <nav>
+        <ul class="list">
+
+          <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-GitHub" href="#" target="_blank"><i class="fa fa-GitHub"></i></a></li>
+        <li><a class="sc-Facebook" href="http://facebook.com/hjalves" target="_blank"><i class="fa fa-Facebook"></i></a></li>
+        <li><a class="sc-LinkedIn" href="#" target="_blank"><i class="fa fa-LinkedIn"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="java-8-streams">Java 8: Streams</h1>
+    <p>
+          Posted on Tue 01 April 2014 in <a href="./category/coding.html">coding</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>Esta é a segunda parte numa série de posts que escrevo a apresentar as <em>features</em> da nova versão do Java. Na <a href="/java-8-lambdas">primeira</a> escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. </p>
+<p>Stream é uma nova interface que permite executar múltiplas operações em cadeia sobre um conjunto de elementos. As operações são organizadas num <em>pipeline</em> de dados constituído por uma origem (i.e.: um array, uma função geradora, I/O...), zero ou mais operações intermédias e uma operação final de consumo.</p>
+<p>Para quem usa Linux e sistemas parecidos, a ideia é a mesma de quando se utiliza vários processos separados por <em>pipes</em>. Para obter os 10 maiores ficheiros/pastas de uma diretoria, por exemplo, podemos executar o seguinte comando:</p>
+<div class="highlight"><pre><span></span>du -s * <span class="p">|</span> sort -n <span class="p">|</span> tail
+</pre></div>
+
+
+<p>Utilizando ainda o exemplo do <a href="/java-8-lambdas">post anterior</a>, vamos reimplementar a classe <code>Chatserver</code> com apenas um simples <em>getter</em> e um construtor com alguns dados de inicialização:</p>
+<div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Chatserver</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Chatserver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Anabela&quot;</span><span class="o">,</span> <span class="sc">&#39;f&#39;</span><span class="o">,</span> <span class="mi">25</span><span class="o">,</span> <span class="kc">false</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Beatriz&quot;</span><span class="o">,</span> <span class="sc">&#39;f&#39;</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Cláudio&quot;</span><span class="o">,</span> <span class="sc">&#39;m&#39;</span><span class="o">,</span> <span class="mi">17</span><span class="o">,</span> <span class="kc">false</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Daniela&quot;</span><span class="o">,</span> <span class="sc">&#39;f&#39;</span><span class="o">,</span> <span class="mi">16</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Eduardo&quot;</span><span class="o">,</span> <span class="sc">&#39;m&#39;</span><span class="o">,</span> <span class="mi">19</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Fabiana&quot;</span><span class="o">,</span> <span class="sc">&#39;f&#39;</span><span class="o">,</span> <span class="mi">26</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&quot;Gonçalo&quot;</span><span class="o">,</span> <span class="sc">&#39;m&#39;</span><span class="o">,</span> <span class="mi">23</span><span class="o">,</span> <span class="kc">false</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">users</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Todas as coleções têm um novo método <code>stream()</code> que, como se deve esperar, devolve um novo stream associado:</p>
+<div class="highlight"><pre><span></span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">();</span>
+</pre></div>
+
+
+<p>Os objetos Stream têm dois tipos diferentes de operações:</p>
+<ul>
+<li>operações intermédias - que aplicam transformações em todos os elementos, devolvendo uma nova stream;</li>
+<li>operações terminais - que consomem a stream, produzindo um resultado final (ou efeitos secundários, como imprimir para a consola).</li>
+</ul>
+<p>Para filtrar os utilizadores segundo uma certa condição (o que foi feito no post anterior), pode-se utilizar o método <code>filter()</code>, uma operação intermédia:</p>
+<div class="highlight"><pre><span></span><span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">isOnline</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Este método devolve uma nova stream, e assim, podemos aplicar mais operações:</p>
+<div class="highlight"><pre><span></span><span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">isOnline</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getGender</span><span class="o">()</span> <span class="o">==</span> <span class="sc">&#39;f&#39;</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Obtemos assim as miúdas que estão online (don't judge me). Para imprimir os resultados, podemos utilizar a operação terminal <code>forEach()</code> que efetua uma ação a cada elemento do stream. Neste caso a ação é simplesmente invocar <code>System.out.println()</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">isOnline</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getGender</span><span class="o">()</span> <span class="o">==</span> <span class="sc">&#39;f&#39;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</pre></div>
+
+
+<p>Output:</p>
+<div class="highlight"><pre><span></span>User{name=Beatriz, gender=f, age=22, online=true}
+User{name=Daniela, gender=f, age=16, online=true}
+User{name=Fabiana, gender=f, age=26, online=true}
+</pre></div>
+
+
+<p>Existem outras operações interessantes como é o caso de <code>sorted()</code> que ordena os elementos segundo um dado comparador e <code>map()</code> que aplica uma função em todos os elementos. Ex:</p>
+<div class="highlight"><pre><span></span><span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">isOnline</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getGender</span><span class="o">()</span> <span class="o">==</span> <span class="sc">&#39;f&#39;</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">sorted</span><span class="o">((</span><span class="n">u</span><span class="o">,</span> <span class="n">v</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">u</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+             <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">description</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</pre></div>
+
+
+<p><code>describe()</code> é um método que devolve uma <code>String</code> com um texto bonito para descrever um utilizador. Output:</p>
+<div class="highlight"><pre><span></span>Daniela, f, 16: online
+Beatriz, f, 22: online
+Fabiana, f, 26: online
+</pre></div>
+
+
+<p>Dá para fazer todo o tipo de coisas porreiras com isto já com a biblioteca padrão, como por exemplo, podemos apresentar estatísticas simples sobre a idade dos utilizadores mapeando, a todos os elementos, o método que devolve a idade seguido de <code>summaryStatistics()</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+        <span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">mapToInt</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getAge</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">summaryStatistics</span><span class="o">());</span>
+</pre></div>
+
+
+<p>Output:</p>
+<div class="highlight"><pre><span></span>IntSummaryStatistics{count=7, sum=148, min=16, 
+average=21.142857, max=26}
+</pre></div>
+
+
+<p>Podemos usar <code>collect()</code> com um <em>Collector</em> para guardar os elementos finais numa estrutura de dados:</p>
+<div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">;</span>
+<span class="n">list</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="na">getUsers</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+         <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">isOnline</span><span class="o">)</span>
+         <span class="o">.</span><span class="na">sorted</span><span class="o">((</span><span class="n">u</span><span class="o">,</span> <span class="n">v</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">u</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+         <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">u</span><span class="o">:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Output:</p>
+<div class="highlight"><pre><span></span>User{name=Daniela, gender=f, age=16, online=true}
+User{name=Eduardo, gender=m, age=19, online=true}
+User{name=Beatriz, gender=f, age=22, online=true}
+User{name=Fabiana, gender=f, age=26, online=true}
+</pre></div>
+
+
+<p>Já chega de chats e utilizadores. Para introduzir, na minha opinião, uma das melhores funcionalidades dos Streams, vou mudar de problema.</p>
+<p>Quer-se contar quantos números primos há abaixo de 10 milhões. Como não me apetece pensar muito, vou determinar se um número é ou não primo mediante um teste exaustivo de divisibilidade (experimentando dividir por todos os números de 2 até à sua raíz quadrada):</p>
+<div class="highlight"><pre><span></span><span class="n">IntPredicate</span> <span class="n">isPrime</span><span class="o">;</span>
+<span class="n">isPrime</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">IntStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">n</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">allMatch</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">;</span>
+</pre></div>
+
+
+<p><code>IntPredicate</code> é uma interface funcional em que o método <code>test()</code> espera um inteiro e devolve um booleano.
+<code>rangeClosed()</code> cria uma range (estilo Python) - uma sequência de números inteiros que começa no primeiro argumento até ao número dado como o segundo argumento (inclusivé - daí se chamar "Closed").</p>
+<p><code>allMatch()</code> devolve <code>true</code> caso a condição "número não é divisível por i (<code>n % i != 0</code>) se verifique para todos os i's pertencentes à sequência.</p>
+<p>Agora para contar primos abaixo de 10 000 000, basta criar uma sequência até 10 milhões, filtrar pela condição de ser primo e contar os elementos. Ou seja,</p>
+<div class="highlight"><pre><span></span><span class="kt">long</span> <span class="n">nPrimes</span> <span class="o">=</span> <span class="n">IntStream</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10_000_000</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">isPrime</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">count</span><span class="o">();</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">nPrimes</span><span class="o">);</span>
+</pre></div>
+
+
+<p>Se executarem, dá 664 579 números primos e, no meu computador, demora aproximadamente 14 segundos para devolver o resultado.</p>
+<p>Num mundo em que os computadores são cada vez mais <em>multi-core</em>, é um desperdício utilizar apenas um core para fazer resolver este tipo de problemas <em>embaraçosamente</em> paralelos.</p>
+<p>O Java 8 possibilita-nos paralelizar as operações das streams, <strong>automagicamente</strong>, sem haver necessidade de lidar com threads e essas coisas. Basta invocar o método <code>parallel()</code> numa stream já existente, ou então, <code>parallelStream()</code> quando se quer obter um stream a partir de um collection.</p>
+<p>Abaixo está o programa completo, já ajustado para processar a stream em paralelo:</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrimeTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">IntPredicate</span> <span class="n">isPrime</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">IntStream</span>
+            <span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span><span class="n">n</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">allMatch</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">;</span>
+
+        <span class="kt">long</span> <span class="n">nPrimes</span> <span class="o">=</span> <span class="n">IntStream</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10_000_000</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">parallel</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">isPrime</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">count</span><span class="o">();</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">nPrimes</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Este programa demora-me ~7.8 segundos, ou seja, um <em>speedup</em> de 1.8&times;. Um resultado consistente com o facto de ter um computador dual-core.</p>
+<p>E é tudo por agora.
+Espero que tenham gostado :)</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/java.html">java</a>
+    </p>
+  </div>
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; Humberto Alves </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " hjalves.eu ",
+  "url" : ".",
+  "image": "",
+  "description": ""
+}
+</script>
+</body>
+</html>
