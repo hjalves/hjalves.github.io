@@ -13,6 +13,8 @@
     <link href="https://hjalves.eu/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="hjalves.eu Atom">
 
 
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,17 +31,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <meta name="author" content="Humberto Alves" />
-<meta name="description" content="O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem menos detestável e um pouquinho mais usável. Portanto decidi começar …" />
+<meta name="description" content="This post is written in Portuguese only. Sorry about that. O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem …" />
 <meta name="keywords" content="java">
 <meta property="og:site_name" content="hjalves.eu"/>
 <meta property="og:title" content="Java 8: Lambdas"/>
-<meta property="og:description" content="O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem menos detestável e um pouquinho mais usável. Portanto decidi começar …"/>
+<meta property="og:description" content="This post is written in Portuguese only. Sorry about that. O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://hjalves.eu/posts/2014/java-8-lambdas/"/>
+<meta property="og:url" content="https://hjalves.eu/posts/2014/java-8-lambdas-pt/"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2014-03-30 11:59:14+01:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://hjalves.eu/author/humberto-alves.html">
+<meta property="article:author" content="https://hjalves.eu/author/humberto-alves/">
 <meta property="article:section" content="coding"/>
 <meta property="article:tag" content="java"/>
 <meta property="og:image" content="/images/avatar.jpg">
@@ -59,6 +61,7 @@
       <nav>
         <ul class="list">
           <li><a href="https://hjalves.eu/about/#about">About</a></li>
+          <li><a href="https://hjalves.eu/projects/#projects">Projects</a></li>
 
         </ul>
       </nav>
@@ -66,8 +69,8 @@
       <ul class="social">
         <li><a class="sc-github" href="https://github.com/hjalves" target="_blank"><i class="fa fa-github"></i></a></li>
         <li><a class="sc-linkedin" href="https://www.linkedin.com/in/hjalves/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="sc-facebook" href="http://facebook.com/hjalves" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+        <li><a class="sc-envelope-o" href="mailto:hello@hjalves.eu" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a class="sc-rss" href="https://hjalves.eu/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
       </ul>
     </div>
 
@@ -79,9 +82,9 @@
       <a href="https://hjalves.eu">    Home
 </a>
 
-      <a href="/archives.html">Archives</a>
-      <a href="/categories.html">Categories</a>
-      <a href="/tags.html">Tags</a>
+      <a href="/archives/">Archives</a>
+      <a href="/categories/">Categories</a>
+      <a href="/tags/">Tags</a>
 
       <a href="https://hjalves.eu/feeds/all.atom.xml">    Atom
 </a>
@@ -92,7 +95,7 @@
   <header>
     <h1 id="java-8-lambdas">Java 8: Lambdas</h1>
     <p>
-          Posted on Sun 30 March 2014 in <a href="https://hjalves.eu/category/coding.html">coding</a>
+          Posted on Sun 30 March 2014 in <a href="https://hjalves.eu/category/coding/">coding</a>
 
 
     </p>
@@ -100,7 +103,11 @@
 
 
   <div>
-    <p>O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem menos detestável e um pouquinho mais usável.</p>
+    <blockquote>
+<p>This post is written in Portuguese only.
+Sorry about that.</p>
+</blockquote>
+<p>O Java 8 foi lançado há uma semana e tal. Para quem me conhece, sabe que eu tenho um pouco de pavor à linguagem. Após este lançamento, fiquei genuinamente com a impressão de Java se estar a tornar numa linguagem menos detestável e um pouquinho mais usável.</p>
 <p>Portanto decidi começar uma série de posts a descrever as novas <em>features</em>, e, para um primeiro post, nada melhor do que falar da minha <em>feature</em> preferida: <strong>lambdas</strong>!</p>
 <p>Considerem esta situação muito comum:</p>
 <div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Chatserver</span> <span class="o">{</span>
@@ -280,7 +287,7 @@ x= 4.00  f(x)=60.00  f&#39;(x)=26.00  f&#39;&#39;(x)= 6.00
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="https://hjalves.eu/tag/java.html">java</a>
+      <a href="https://hjalves.eu/tag/java/">java</a>
     </p>
   </div>
 

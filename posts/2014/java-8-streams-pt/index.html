@@ -13,6 +13,8 @@
     <link href="https://hjalves.eu/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="hjalves.eu Atom">
 
 
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,17 +31,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <meta name="author" content="Humberto Alves" />
-<meta name="description" content="Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. Stream é uma nova interface que permite executar múltiplas …" />
+<meta name="description" content="This post is written in Portuguese only. Sorry about that. Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …" />
 <meta name="keywords" content="java">
 <meta property="og:site_name" content="hjalves.eu"/>
 <meta property="og:title" content="Java 8: Streams"/>
-<meta property="og:description" content="Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. Stream é uma nova interface que permite executar múltiplas …"/>
+<meta property="og:description" content="This post is written in Portuguese only. Sorry about that. Esta é a segunda parte numa série de posts que escrevo a apresentar as features da nova versão do Java. Na primeira escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://hjalves.eu/posts/2014/java-8-streams/"/>
+<meta property="og:url" content="https://hjalves.eu/posts/2014/java-8-streams-pt/"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2014-04-01 15:18:39+01:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://hjalves.eu/author/humberto-alves.html">
+<meta property="article:author" content="https://hjalves.eu/author/humberto-alves/">
 <meta property="article:section" content="coding"/>
 <meta property="article:tag" content="java"/>
 <meta property="og:image" content="/images/avatar.jpg">
@@ -59,6 +61,7 @@
       <nav>
         <ul class="list">
           <li><a href="https://hjalves.eu/about/#about">About</a></li>
+          <li><a href="https://hjalves.eu/projects/#projects">Projects</a></li>
 
         </ul>
       </nav>
@@ -66,8 +69,8 @@
       <ul class="social">
         <li><a class="sc-github" href="https://github.com/hjalves" target="_blank"><i class="fa fa-github"></i></a></li>
         <li><a class="sc-linkedin" href="https://www.linkedin.com/in/hjalves/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="sc-facebook" href="http://facebook.com/hjalves" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+        <li><a class="sc-envelope-o" href="mailto:hello@hjalves.eu" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a class="sc-rss" href="https://hjalves.eu/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
       </ul>
     </div>
 
@@ -79,9 +82,9 @@
       <a href="https://hjalves.eu">    Home
 </a>
 
-      <a href="/archives.html">Archives</a>
-      <a href="/categories.html">Categories</a>
-      <a href="/tags.html">Tags</a>
+      <a href="/archives/">Archives</a>
+      <a href="/categories/">Categories</a>
+      <a href="/tags/">Tags</a>
 
       <a href="https://hjalves.eu/feeds/all.atom.xml">    Atom
 </a>
@@ -92,7 +95,7 @@
   <header>
     <h1 id="java-8-streams">Java 8: Streams</h1>
     <p>
-          Posted on Tue 01 April 2014 in <a href="https://hjalves.eu/category/coding.html">coding</a>
+          Posted on Tue 01 April 2014 in <a href="https://hjalves.eu/category/coding/">coding</a>
 
 
     </p>
@@ -100,7 +103,11 @@
 
 
   <div>
-    <p>Esta é a segunda parte numa série de posts que escrevo a apresentar as <em>features</em> da nova versão do Java. Na <a href="/java-8-lambdas">primeira</a> escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. </p>
+    <blockquote>
+<p>This post is written in Portuguese only.
+Sorry about that.</p>
+</blockquote>
+<p>Esta é a segunda parte numa série de posts que escrevo a apresentar as <em>features</em> da nova versão do Java. Na <a href="/java-8-lambdas">primeira</a> escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. </p>
 <p>Stream é uma nova interface que permite executar múltiplas operações em cadeia sobre um conjunto de elementos. As operações são organizadas num <em>pipeline</em> de dados constituído por uma origem (i.e.: um array, uma função geradora, I/O...), zero ou mais operações intermédias e uma operação final de consumo.</p>
 <p>Para quem usa Linux e sistemas parecidos, a ideia é a mesma de quando se utiliza vários processos separados por <em>pipes</em>. Para obter os 10 maiores ficheiros/pastas de uma diretoria, por exemplo, podemos executar o seguinte comando:</p>
 <div class="highlight"><pre><span></span>du -s * <span class="p">|</span> sort -n <span class="p">|</span> tail
@@ -266,7 +273,7 @@ Espero que tenham gostado :)</p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="https://hjalves.eu/tag/java.html">java</a>
+      <a href="https://hjalves.eu/tag/java/">java</a>
     </p>
   </div>
 

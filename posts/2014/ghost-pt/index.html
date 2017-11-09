@@ -13,6 +13,8 @@
     <link href="https://hjalves.eu/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="hjalves.eu Atom">
 
 
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,19 +31,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <meta name="author" content="Humberto Alves" />
-<meta name="description" content="Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost. Ghost é um software de blogging novo, open-source, desenvolvido em Node.js e financiado através de uma iniciativa de crowdfunding. É suposto ser simples, com design limpo …" />
-<meta name="keywords" content="meta">
+<meta name="description" content="This post is written in Portuguese only. Sorry about that. Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost. Ghost é um software de blogging novo, open-source, desenvolvido em Node.js e financiado através de uma …" />
+<meta name="keywords" content="">
 <meta property="og:site_name" content="hjalves.eu"/>
 <meta property="og:title" content="Ghost"/>
-<meta property="og:description" content="Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost. Ghost é um software de blogging novo, open-source, desenvolvido em Node.js e financiado através de uma iniciativa de crowdfunding. É suposto ser simples, com design limpo …"/>
+<meta property="og:description" content="This post is written in Portuguese only. Sorry about that. Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost. Ghost é um software de blogging novo, open-source, desenvolvido em Node.js e financiado através de uma …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://hjalves.eu/posts/2014/ghost/"/>
+<meta property="og:url" content="https://hjalves.eu/posts/2014/ghost-pt/"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2014-02-07 05:04:30+00:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://hjalves.eu/author/humberto-alves.html">
+<meta property="article:author" content="https://hjalves.eu/author/humberto-alves/">
 <meta property="article:section" content="meta"/>
-<meta property="article:tag" content="meta"/>
 <meta property="og:image" content="/images/avatar.jpg">
 
   <title>hjalves.eu &ndash; Ghost</title>
@@ -59,6 +60,7 @@
       <nav>
         <ul class="list">
           <li><a href="https://hjalves.eu/about/#about">About</a></li>
+          <li><a href="https://hjalves.eu/projects/#projects">Projects</a></li>
 
         </ul>
       </nav>
@@ -66,8 +68,8 @@
       <ul class="social">
         <li><a class="sc-github" href="https://github.com/hjalves" target="_blank"><i class="fa fa-github"></i></a></li>
         <li><a class="sc-linkedin" href="https://www.linkedin.com/in/hjalves/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="sc-facebook" href="http://facebook.com/hjalves" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+        <li><a class="sc-envelope-o" href="mailto:hello@hjalves.eu" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a class="sc-rss" href="https://hjalves.eu/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
       </ul>
     </div>
 
@@ -79,9 +81,9 @@
       <a href="https://hjalves.eu">    Home
 </a>
 
-      <a href="/archives.html">Archives</a>
-      <a href="/categories.html">Categories</a>
-      <a href="/tags.html">Tags</a>
+      <a href="/archives/">Archives</a>
+      <a href="/categories/">Categories</a>
+      <a href="/tags/">Tags</a>
 
       <a href="https://hjalves.eu/feeds/all.atom.xml">    Atom
 </a>
@@ -92,7 +94,7 @@
   <header>
     <h1 id="ghost">Ghost</h1>
     <p>
-          Posted on Fri 07 February 2014 in <a href="https://hjalves.eu/category/meta.html">meta</a>
+          Posted on Fri 07 February 2014 in <a href="https://hjalves.eu/category/meta/">meta</a>
 
 
     </p>
@@ -100,7 +102,11 @@
 
 
   <div>
-    <p>Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost.</p>
+    <blockquote>
+<p>This post is written in Portuguese only.
+Sorry about that.</p>
+</blockquote>
+<p>Para um primeiro post, nada melhor do que falar de plataformas de blogging e introduzir aquela que está por detrás deste blog — Ghost.</p>
 <p><a href="https://ghost.org">Ghost</a> é um software de blogging novo, <a href="https://github.com/tryghost/Ghost">open-source</a>, desenvolvido em <a href="http://nodejs.org">Node.js</a> e financiado através de uma iniciativa de <a href="https://www.kickstarter.com/projects/johnonolan/ghost-just-a-blogging-platform">crowdfunding</a>.</p>
 <p>É suposto ser simples, com design limpo e o mínimo de funcionalidade possível. Os posts são escritos em <a href="https://daringfireball.net/projects/markdown/">markdown</a>, uma linguagem textual compatível com HTML e que hoje anda muito na moda.</p>
 <p>Inicialmente, estava a pensar usar <a href="http://wordpress.org">Wordpress</a> por ser, hoje em dia, um <a href="http://thenextweb.com/insider/2013/07/27/wordpress-now-powers-18-9-of-the-web-has-over-46m-downloads-according-to-founder-matt-mullenweg/#!uCEP4">padrão <em>de-facto</em></a> da web. Não é apenas uma mera ferramenta de criação de blogs — é também um sistema de gestão de conteúdos (CMS) genérico e bastante poderoso.</p>
@@ -113,7 +119,6 @@
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="https://hjalves.eu/tag/meta.html">meta</a>
     </p>
   </div>
 
