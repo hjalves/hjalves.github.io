@@ -103,7 +103,7 @@
 <p>This post is written in Portuguese only.
 Sorry about that.</p>
 </blockquote>
-<p>Esta é a segunda parte numa série de posts que escrevo a apresentar as <em>features</em> da nova versão do Java. Na <a href="/java-8-lambdas">primeira</a> escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. </p>
+<p>Esta é a segunda parte numa série de posts que escrevo a apresentar as <em>features</em> da nova versão do Java. Na <a href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/">primeira</a> escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. </p>
 <p>Stream é uma nova interface que permite executar múltiplas operações em cadeia sobre um conjunto de elementos. As operações são organizadas num <em>pipeline</em> de dados constituído por uma origem (i.e.: um array, uma função geradora, I/O...), zero ou mais operações intermédias e uma operação final de consumo.</p>
 <p>Para quem usa Linux e sistemas parecidos, a ideia é a mesma de quando se utiliza vários processos separados por <em>pipes</em>. Para obter os 10 maiores ficheiros/pastas de uma diretoria, por exemplo, podemos executar o seguinte comando:</p>
 <div class="highlight"><pre><span></span>du -s * <span class="p">|</span> sort -n <span class="p">|</span> tail

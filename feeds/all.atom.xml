@@ -3,11 +3,11 @@
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="/java-8-lambdas"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="/java-8-lambdas"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. &lt;/p&gt;
+&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. &lt;/p&gt;
 &lt;p&gt;Stream é uma nova interface que permite executar múltiplas operações em cadeia sobre um conjunto de elementos. As operações são organizadas num &lt;em&gt;pipeline&lt;/em&gt; de dados constituído por uma origem (i.e.: um array, uma função geradora, I/O...), zero ou mais operações intermédias e uma operação final de consumo.&lt;/p&gt;
 &lt;p&gt;Para quem usa Linux e sistemas parecidos, a ideia é a mesma de quando se utiliza vários processos separados por &lt;em&gt;pipes&lt;/em&gt;. Para obter os 10 maiores ficheiros/pastas de uma diretoria, por exemplo, podemos executar o seguinte comando:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;du -s * &lt;span class="p"&gt;|&lt;/span&gt; sort -n &lt;span class="p"&gt;|&lt;/span&gt; tail
@@ -353,7 +353,7 @@ x= 4.00  f(x)=60.00  f&amp;#39;(x)=26.00  f&amp;#39;&amp;#39;(x)= 6.00
 
 
 &lt;p&gt;Para fins de comparação, deixo a tarefa de resolver isto sem lambdas para mais corajosos ;)&lt;/p&gt;
-&lt;p&gt;No &lt;a href="/java-8-streams"&gt;próximo post&lt;/a&gt;, vou falar sobre streams, que em conjunto com os lambdas, introduzem o paradigma funcional ao mundo do Java.&lt;/p&gt;</content><category term="java"></category></entry><entry><title>Ghost</title><link href="https://hjalves.eu/posts/2014/ghost-pt/" rel="alternate"></link><published>2014-02-07T05:04:30+00:00</published><updated>2014-02-07T05:04:30+00:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-02-07:/posts/2014/ghost-pt/</id><summary type="html">&lt;blockquote&gt;
+&lt;p&gt;No &lt;a href="https://hjalves.eu/posts/2014/java-8-streams-pt/"&gt;próximo post&lt;/a&gt;, vou falar sobre streams, que em conjunto com os lambdas, introduzem o paradigma funcional ao mundo do Java.&lt;/p&gt;</content><category term="java"></category></entry><entry><title>Ghost</title><link href="https://hjalves.eu/posts/2014/ghost-pt/" rel="alternate"></link><published>2014-02-07T05:04:30+00:00</published><updated>2014-02-07T05:04:30+00:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-02-07:/posts/2014/ghost-pt/</id><summary type="html">&lt;blockquote&gt;
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
