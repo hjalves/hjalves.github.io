@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>hjalves.eu - coding</title><link href="https://hjalves.eu/" rel="alternate"></link><link href="https://hjalves.eu/feeds/coding.atom.xml" rel="self"></link><id>https://hjalves.eu/</id><updated>2014-04-01T15:18:39+01:00</updated><entry><title>Java 8: Streams</title><link href="https://hjalves.eu/posts/2014/java-8-streams-pt/" rel="alternate"></link><published>2014-04-01T15:18:39+01:00</published><updated>2014-04-01T15:18:39+01:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-04-01:/posts/2014/java-8-streams-pt/</id><summary type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>hjalves.eu - coding</title><link href="https://hjalves.eu/" rel="alternate"></link><link href="https://hjalves.eu/feeds/coding.atom.xml" rel="self"></link><id>https://hjalves.eu/</id><updated>2014-04-01T15:18:39+01:00</updated><entry><title>Java 8: Streams</title><link href="https://hjalves.eu/posts/2014/04/java-8-streams-pt/" rel="alternate"></link><published>2014-04-01T15:18:39+01:00</published><updated>2014-04-01T15:18:39+01:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-04-01:/posts/2014/04/java-8-streams-pt/</id><summary type="html">&lt;blockquote&gt;
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/03/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente …&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. &lt;/p&gt;
+&lt;p&gt;Esta é a segunda parte numa série de posts que escrevo a apresentar as &lt;em&gt;features&lt;/em&gt; da nova versão do Java. Na &lt;a href="https://hjalves.eu/posts/2014/03/java-8-lambdas-pt/"&gt;primeira&lt;/a&gt; escrevi sobre lambdas (ou funções anónimas). Nesta, falo sobre um conceito novo na linguagem que utiliza lambdas intensivamente - Streams. &lt;/p&gt;
 &lt;p&gt;Stream é uma nova interface que permite executar múltiplas operações em cadeia sobre um conjunto de elementos. As operações são organizadas num &lt;em&gt;pipeline&lt;/em&gt; de dados constituído por uma origem (i.e.: um array, uma função geradora, I/O...), zero ou mais operações intermédias e uma operação final de consumo.&lt;/p&gt;
 &lt;p&gt;Para quem usa Linux e sistemas parecidos, a ideia é a mesma de quando se utiliza vários processos separados por &lt;em&gt;pipes&lt;/em&gt;. Para obter os 10 maiores ficheiros/pastas de uma diretoria, por exemplo, podemos executar o seguinte comando:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;du -s * &lt;span class="p"&gt;|&lt;/span&gt; sort -n &lt;span class="p"&gt;|&lt;/span&gt; tail
@@ -169,7 +169,7 @@ User{name=Fabiana, gender=f, age=26, online=true}
 
 &lt;p&gt;Este programa demora-me ~7.8 segundos, ou seja, um &lt;em&gt;speedup&lt;/em&gt; de 1.8&amp;times;. Um resultado consistente com o facto de ter um computador dual-core.&lt;/p&gt;
 &lt;p&gt;E é tudo por agora.
-Espero que tenham gostado :)&lt;/p&gt;</content><category term="java"></category></entry><entry><title>Java 8: Lambdas</title><link href="https://hjalves.eu/posts/2014/java-8-lambdas-pt/" rel="alternate"></link><published>2014-03-30T11:59:14+01:00</published><updated>2014-03-30T11:59:14+01:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-03-30:/posts/2014/java-8-lambdas-pt/</id><summary type="html">&lt;blockquote&gt;
+Espero que tenham gostado :)&lt;/p&gt;</content><category term="java"></category></entry><entry><title>Java 8: Lambdas</title><link href="https://hjalves.eu/posts/2014/03/java-8-lambdas-pt/" rel="alternate"></link><published>2014-03-30T11:59:14+01:00</published><updated>2014-03-30T11:59:14+01:00</updated><author><name>Humberto Alves</name></author><id>tag:hjalves.eu,2014-03-30:/posts/2014/03/java-8-lambdas-pt/</id><summary type="html">&lt;blockquote&gt;
 &lt;p&gt;This post is written in Portuguese only.
 Sorry about that.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -353,4 +353,4 @@ x= 4.00  f(x)=60.00  f&amp;#39;(x)=26.00  f&amp;#39;&amp;#39;(x)= 6.00
 
 
 &lt;p&gt;Para fins de comparação, deixo a tarefa de resolver isto sem lambdas para mais corajosos ;)&lt;/p&gt;
-&lt;p&gt;No &lt;a href="https://hjalves.eu/posts/2014/java-8-streams-pt/"&gt;próximo post&lt;/a&gt;, vou falar sobre streams, que em conjunto com os lambdas, introduzem o paradigma funcional ao mundo do Java.&lt;/p&gt;</content><category term="java"></category></entry></feed>
+&lt;p&gt;No &lt;a href="https://hjalves.eu/posts/2014/04/java-8-streams-pt/"&gt;próximo post&lt;/a&gt;, vou falar sobre streams, que em conjunto com os lambdas, introduzem o paradigma funcional ao mundo do Java.&lt;/p&gt;</content><category term="java"></category></entry></feed>
